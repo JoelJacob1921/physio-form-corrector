@@ -39,8 +39,20 @@ source .venv/bin/activate
 pip install --upgrade pip
 pip install --no-compile -r requirements.txt
 ```
+On Windows, use `python` instead of `python3` and activate with `.venv\Scripts\activate` instead of `source .venv/bin/activate`. The other commands are the same.
 
 > `--no-compile` is needed because MediaPipe 1.2.3 ships with a typo in one of its own internal test files, which crashes pip's compile step. Skipping that step is safe; Python compiles the files it actually uses on first run.
+
+
+## Usage
+When the virtual environment is active, run from the repo root:
+
+```bash
+python src/main.py
+```
+A window opens with your live webcam feed. Click the window and press `q` to quit.
+> On the first run, your computer may ask for camera permission. Click **Allow**, then run the command again. (macOS: System Settings → Privacy & Security → Camera. Windows: Settings → Privacy & security → Camera.)
+> If you have an iPhone nearby, macOS may list it as a camera too. If the wrong camera opens, change `CAMERA_INDEX` at the top of `src/main.py`.
 
 
 ## Diagrams
@@ -51,5 +63,8 @@ pip install --no-compile -r requirements.txt
 
 ## Changes from the original plan
 
-- Switched the MVP exercise from squats to push-ups. The  only thing that changes are the scope of the joints (elbow and shoulder-hip-ankle angles instead of knee and back angles).
+- Switched the MVP exercise from squats to push-ups. The only thing that changes is the scope of the joints (elbow and shoulder-hip-ankle angles instead of knee and back angles).
+
+
+
 
