@@ -4,12 +4,16 @@ import sys
 import time
 
 import cv2
+from pose import PoseDetector, draw_skeleton
+
 
 CAMERA_INDEX = 0
 WINDOW_NAME = "Physio Form Corrector"
 QUIT_KEY = "q"
 MAX_FAILED_READS = 30
 RETRY_DELAY_SECONDS = 0.1
+TEXT_COLOR = (0, 0, 255)  
+# red (OpenCV uses BGR, so red comes last)
 
 
 def open_camera(index):
@@ -29,6 +33,14 @@ def open_camera(index):
 
 def main():
     camera = open_camera(CAMERA_INDEX)
+    try:
+        detector = PoseDetector()
+    except FileNotFoundError as error:
+        # If the model file is missing there's nothing useful we can do, so we hand the
+        # camera back and show our "here's how to fix it" message instead of a weird error.
+        camera.release()
+        print(error)
+        sys.exit(1)
 
     failed_reads = 0
     while True:
@@ -46,6 +58,15 @@ def main():
 
         # Mirror the image so it behaves like a mirror for the user, which feels more natural.
         frame = cv2.flip(frame, 1)
+        landmarks = detector.detect(frame)
+        if landmarks is None:
+            # Nobody's in view (or it's too dark to tell), so it say so on screen
+            # instead of leaving the user wondering why nothing is happening.
+            cv2.putText(frame, "No person detected", (20, 40),
+                        cv2.FONT_HERSHEY_SIMPLEX, 1, TEXT_COLOR, 2)
+        else:
+            draw_skeleton(frame, landmarks)
+
         cv2.imshow(WINDOW_NAME, frame)
 
         # waitKey also gives OpenCV time to redraw the window; without it the window stays blank.
@@ -54,9 +75,9 @@ def main():
 
     camera.release()
     cv2.destroyAllWindows()
+    detectors.close()
 
 
 # Only run main() when this file is run directly, so importing it elsewhere won't start the webcam.
 if __name__ == "__main__":
     main()
-    
