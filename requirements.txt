@@ -1,0 +1,4 @@
+mediapipe==1.2.3
+opencv-contrib-python
+numpy
+pytest
