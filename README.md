@@ -8,12 +8,12 @@ Most people do their physio exercises alone at home with no one checking their f
 
 ## MVP scope
 
-The first version covers one exercise, the squat, filmed from the side:
+The first version covers one exercise, the push-up, filmed from the side:
 
 - Live webcam feed with a skeleton overlay
-- Knee and back angle calculation
+- Elbow angle (depth) and body-line angle (hip sag) calculation
 - Rep counting
-- Simple feedback like "Go deeper" or "Keep your chest up"
+- Simple feedback like "Go lower" or "Hips sagging – tighten your core"
 - Summary of reps and form at the end of a set
 
 ## Future plans
@@ -42,7 +42,14 @@ pip install --no-compile -r requirements.txt
 
 > `--no-compile` is needed because MediaPipe 1.2.3 ships with a typo in one of its own internal test files, which crashes pip's compile step. Skipping that step is safe; Python compiles the files it actually uses on first run.
 
+
 ## Diagrams
 
 - System diagram: ![System diagram](docs/system_diagram.png)
 - [Eisenhower Matrix (PDF)](docs/eisenhower_matrix.pdf)
+
+
+## Changes from the original plan
+
+- Switched the MVP exercise from squats to push-ups. The  only thing that changes are the scope of the joints (elbow and shoulder-hip-ankle angles instead of knee and back angles).
+
