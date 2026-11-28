@@ -19,7 +19,7 @@ The first version covers one exercise, the push-up, filmed from the side:
 ## Future plans
 
 - Have a physical therapist check the angle thresholds
-- Add a second exercise (shoulder raise or lunge)
+- Add a second exercise (lateral raise or lunge)
 - Save session history and track progress
 - Add audio cues
 
@@ -43,6 +43,7 @@ On Windows, use `python` instead of `python3` and activate with `.venv\Scripts\a
 
 > `--no-compile` is needed because MediaPipe 1.2.3 ships with a typo in one of its own internal test files, which crashes pip's compile step. Skipping that step is safe; Python compiles the files it actually uses on first run.
 
+The pose model (`models/pose_landmarker_full.task`, about 9 MB) is already included in the repo, so there's nothing extra to download. It's Google's MediaPipe Pose Landmarker "full" model, from https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker.
 
 ## Usage
 When the virtual environment is active, run from the repo root:
