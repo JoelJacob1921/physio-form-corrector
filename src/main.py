@@ -75,7 +75,7 @@ def main():
 
     camera.release()
     cv2.destroyAllWindows()
-    detectors.close()
+    detector.close()
 
 
 # Only run main() when this file is run directly, so importing it elsewhere won't start the webcam.
